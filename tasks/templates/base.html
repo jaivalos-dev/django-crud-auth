@@ -11,6 +11,8 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/tasks">Tasks</a></li>
+            <!-- Validate if the user is authenticated with the method that django have -->
+            <!-- from django.contrib.auth import login, logout, authenticate -->
             {% if user.is_authenticated %}
                 <li><a href="/logout">Logout</a></li>
             {% else %}
