@@ -4,10 +4,13 @@
 
 <h1>Signin</h1>
 
+<!-- The template receives an error if the person is not authenticated well -->
 {{ error }}
 
 <form method="POST">
     {% csrf_token %}
+    <!-- The form is created by a django template -->
+    <!-- from django.contrib.auth.forms import UserCreationForm, AuthenticationForm -->
     {{ form.as_p }}
     <button>Signin</button>
 </form>
