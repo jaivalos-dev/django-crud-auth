@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
+from .forms import TaskForm
+from .models import Task
 
 
 def home(request):
@@ -70,3 +72,23 @@ def signin(request):
         else:
             login(request, user)
             return redirect('tasks')
+        
+
+def create_task(request):
+    if request.method == 'GET':
+        return render(request, 'create_task.html', {
+            'form': TaskForm
+        })
+    else:
+        try:
+            form = TaskForm(request.POST)
+            new_task = form.save(commit=False)
+            new_task.user = request.user
+            new_task.save()
+            return redirect('tasks.html')
+        except:
+            return render(request, 'create_task.html',{
+                'form': TaskForm,
+                'error': 'Please provide valid data'
+            })
+    

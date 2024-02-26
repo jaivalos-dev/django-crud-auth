@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 ''' 
-Django has a ORM, it makes easier the use of a DB in our system. 
+Django has an ORM, it makes easier the use of a DB in our system. 
 With the class Task, django is able to create a table named Task. 
 Dajngo also created methos to create Tasks, update and delete. 
 '''
