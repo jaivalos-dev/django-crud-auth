@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -46,9 +46,6 @@ def signout(request):
     return redirect('home')
 
 
-def tasks(request):
-    return render(request, 'tasks.html')
-
 # With signin view, the user could login to an account that allready exists. 
 # We uses the POST method to send the info
 def signin(request):
@@ -73,6 +70,13 @@ def signin(request):
             login(request, user)
             return redirect('tasks')
         
+        
+def tasks(request):
+    tasks = Task.objects.filter(user=request.user, date_completed__isnull=True )
+    return render(request, 'tasks.html',{
+        'tasks': tasks
+    })
+
 
 def create_task(request):
     if request.method == 'GET':
@@ -85,10 +89,17 @@ def create_task(request):
             new_task = form.save(commit=False)
             new_task.user = request.user
             new_task.save()
-            return redirect('tasks.html')
+            return redirect('tasks')
         except:
             return render(request, 'create_task.html',{
                 'form': TaskForm,
                 'error': 'Please provide valid data'
             })
     
+
+        
+def task_detail(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    return render(request, 'task_detail.html',{
+        'task': task
+    })
