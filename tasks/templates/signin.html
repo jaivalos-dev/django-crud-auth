@@ -2,18 +2,39 @@
 
 {% block content %}
 
-<h1>Signin</h1>
+
 
 <!-- The template receives an error if the person is not authenticated well -->
 {{ error }}
 
-<form method="POST">
-    {% csrf_token %}
-    <!-- The form is created by a django template -->
-    <!-- from django.contrib.auth.forms import UserCreationForm, AuthenticationForm -->
-    {{ form.as_p }}
-    <button>Signin</button>
-</form>
+<main class="container">
+    <div class="row mt-3">
+        <div class="col-md-8 offset-md-2">
+            <form method="POST" class="card card-body">
+                {% csrf_token %}
+                <h1 class="text-center">Sign in</h1>
+                        
+                <!-- As well, it receives an error if the usar does something wrong -->
+                {{error}}
+            
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                </div>
+            
+            
+                <button class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+    </div>
+</main>
 
 
 {% endblock %}
