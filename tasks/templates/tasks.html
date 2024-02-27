@@ -1,7 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>tasks</h1>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime iure cumque voluptate. Asperiores sit accusantium nostrum itaque praesentium expedita illum eaque consequatur. Mollitia rem rerum tempora voluptatibus harum molestias ullam maxime, ducimus voluptates, ipsam reiciendis odio placeat pariatur deserunt a unde quaerat labore. Incidunt blanditiis itaque illo exercitationem saepe, quibusdam eveniet libero explicabo amet magni in quod velit rerum nihil, dolorem tempore tenetur officia dignissimos sint. Veniam sunt nemo tempora ex consequatur. Dignissimos nam non nisi debitis est quaerat omnis, ipsam ducimus alias maxime consectetur ipsum ex maiores at numquam possimus a quibusdam dolorem corporis minima in obcaecati. Debitis aliquid, quaerat quasi nostrum sequi, fugiat rerum quia illo autem atque iure, repellendus quas tempora. Possimus accusantium dolor voluptate cum incidunt minima ex exercitationem architecto laboriosam repudiandae blanditiis tenetur quod, fugit sunt libero labore cupiditate fuga asperiores? Sequi vitae deserunt, ipsam unde nihil cupiditate architecto eum aliquid sed ratione blanditiis quasi. </p>
+<h1>Pending tasks</h1>
+
+<ul>
+    {% for task in tasks %}
+    <li>
+        <a href="{% url 'task_detail' task.id %}">
+            {% if task.important %}
+                <strong><h1>{{ task.title }}</h1></strong>
+            {% else %}
+                <h1>{{ task.title }}</h1>
+            {% endif %}
+            <p>{{ task.description }}</p>
+            <p>{{ task.date_completed|date:'M j Y:i' }}</p>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
 
